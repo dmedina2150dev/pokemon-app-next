@@ -1,10 +1,14 @@
 import { FC, PropsWithChildren } from 'react';
 import Head from 'next/head';
+import { Navbar } from '../ui';
 
 interface Props {
     title?: string
 }
-
+/**
+ * ? PropsWithChildren -> Nos sirven para tipar con Typescript cuando el componente trae hijos los (children)
+ * ? PropsWithChildren<Props> -> Le asignamos una interface o type que contenga el tipado de Typescript de nuestras (props)
+ */
 export const Layout: FC<PropsWithChildren<Props>> = ({ children, title }) => {
     return (
         <>
@@ -16,8 +20,9 @@ export const Layout: FC<PropsWithChildren<Props>> = ({ children, title }) => {
             </Head>
 
             {/* Navbar */}
+            <Navbar />
 
-            <main>
+            <main className="main">
                 { children }
             </main>
         </>
