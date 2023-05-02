@@ -16,7 +16,7 @@ interface Props {
 
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
-	const [isInFavorites, setIsInFavorites] = useState( localFavorites.exitInFavorites( pokemon.id ) );
+	const [isInFavorites, setIsInFavorites] = useState( typeof window === "undefined" &&  localFavorites.exitInFavorites( pokemon.id ) );
 
 	const onToogleFavoites = () => {
 		// console.log('ID:', pokemon.id);
