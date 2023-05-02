@@ -1,7 +1,7 @@
 import { Container, Image, Text } from "@nextui-org/react"
 
 
-const NoFavorites = () => {
+export const NoFavorites = () => {
     return (
 
         <Container css={{
@@ -26,5 +26,3 @@ const NoFavorites = () => {
 
     )
 }
-
-export default NoFavorites
