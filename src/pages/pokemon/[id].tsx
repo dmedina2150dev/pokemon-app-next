@@ -35,8 +35,7 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 			}
 		})
 	}
-
-	console.log(isInFavorites)
+	
 	return (
 		<Layout title={ pokemon.name }>
 			<Grid.Container css={{marginTop: '5px' }} gap={ 2 }>
@@ -112,7 +111,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 		paths: pokemons151.map(id => ({
 			params: { id }
 		})),
-		fallback: false
+		// fallback: false
+		fallback: 'blocking' // ? Se cambia a blocking para permitir el ISG (Incremental Static Generation)
 	}
 }
 
@@ -121,6 +121,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	const { id } = params as { id: string};
 
 	const pokemon = await getPokemonInfo( id );
+
+	if( !pokemon ) {
+		return {
+			redirect: {
+				destination: '/',
+				permanent: false
+			}
+		}
+	}
 
 	return {
 		props: {
