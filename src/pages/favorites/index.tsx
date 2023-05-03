@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { Card, Grid } from "@nextui-org/react";
 
 import { localFavorites } from "@/utils";
 import { Layout } from "@/components/layouts";
 import { NoFavorites } from "@/components/ui/NoFavorites";
 import { FavoriteList } from "@/components/pokemon";
-
-
 
 const FavoritesPage = () => {
 

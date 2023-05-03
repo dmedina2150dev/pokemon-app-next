@@ -15,7 +15,7 @@ interface Props {
 
 const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 
-	const [isInFavorites, setIsInFavorites] = useState( typeof window === "undefined" &&  localFavorites.exitInFavorites( pokemon.id ) );
+	const [isInFavorites, setIsInFavorites] = useState( localFavorites.exitInFavorites( pokemon.id ) );
 
 	const onToogleFavoites = () => {
 		// console.log('ID:', pokemon.id);
@@ -36,6 +36,7 @@ const PokemonPage: NextPage<Props> = ({ pokemon }) => {
 		})
 	}
 
+	console.log(isInFavorites)
 	return (
 		<Layout title={ pokemon.name }>
 			<Grid.Container css={{marginTop: '5px' }} gap={ 2 }>
@@ -124,7 +125,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 	return {
 		props: {
 			pokemon
-		}
+		},
+		// ? Con esto hacemos que la pagina se vuelva a validar o recrear en el tiempo indicado en segundo
+		// * Sirve para cuando tenemos contenido en la pagina que pudo cambiar.
+		revalidate: 86400, // 60 * 60 * 24
 	}
 }
 
