@@ -114,7 +114,8 @@ export const getStaticPaths: GetStaticPaths = async (ctx) => {
 		paths: pokemonsName.map(name => ({
 			params: { name }
 		})),
-		fallback: false
+		// fallback: false
+		fallback: 'blocking' // ? Se cambia a blocking para permitir el ISG (Incremental Static Generation)
 	}
 }
 
@@ -124,10 +125,22 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
 	const pokemon = await getPokemonInfo(name);
 
+	if( !pokemon ) {
+		return {
+			redirect: {
+				destination: '/',
+				permanent: false
+			}
+		}
+	}
+
 	return {
 		props: {
 			pokemon
-		}
+		},
+		// ? Con esto hacemos que la pagina se vuelva a validar o recrear en el tiempo indicado en segundo
+		// * Sirve para cuando tenemos contenido en la pagina que pudo cambiar.
+		revalidate: 86400, // 60 * 60 * 24
 	}
 }
 
